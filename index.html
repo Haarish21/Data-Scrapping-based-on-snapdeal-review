@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snapdeal Review Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h2>📊 Snapdeal Review Sentiment Analyzer</h2>
+    <form method="POST">
+        <input type="text" name="url" placeholder="Enter Snapdeal product URL" value="{{ url }}" style="width: 100%;" required>
+        <br><br>
+        <button type="submit">Analyze Reviews</button>
+    </form>
+
+    {% if reviews %}
+    <hr>
+    <h3>Sentiment Results:</h3>
+    {% if chart %}
+        <img src="{{ url_for('static', filename=chart.split('/')[-1]) }}" alt="Sentiment Pie Chart">
+    {% endif %}
+    <ul>
+        {% for sentiment, review in reviews %}
+            <li><strong>{{ sentiment }}:</strong> {{ review }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if wordcloud %}
+  <div class="wordcloud-section">
+    <h2>Word Cloud</h2>
+    <img src="{{ wordcloud }}" alt="Word Cloud" style="max-width: 100%; border-radius: 10px;">
+  </div>
+{% endif %}
+
+
+</body>
+</html>
